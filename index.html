@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tabla de Tipos Karmacraft</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:wght@300;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Tabla de Compatibilidad</h1>
+    <div class="subtitle">Tipos de magia de Karmacraft</div>
+
+    <div class="view-controls">
+      <button class="toggle-btn active" onclick="switchView('chart', this)">Gráfico Cósmico</button>
+      <button class="toggle-btn" onclick="switchView('matrix', this)">Matriz Clásica</button>
+      <button class="toggle-btn" onclick="switchView('versus', this)">Modo Versus</button>
+      <button class="toggle-btn" onclick="switchView('cards', this)">Tarjetas de Elemento</button>
+    </div>
+
+    <div id="view-chart" class="view-container active">
+      <div class="mobile-icons-legend" id="mobile-legend"></div>
+
+      <div class="chart-container" id="chart">
+        <svg class="chart-layer" id="lines-layer" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet"></svg>
+      </div>
+      <div class="chart-legend">
+        <div class="legend-item"><div class="legend-line solid"></div><span><strong>Fuerte contra</strong> (Doble daño)</span></div>
+        <div class="legend-item"><div class="legend-line dashed"></div><span><strong>Débil contra</strong> (Recibe doble)</span></div>
+      </div>
+    </div>
+
+    <div id="view-matrix" class="view-container">
+      <div class="matrix-wrapper">
+        <table class="type-matrix" id="matrix-table"></table>
+      </div>
+    </div>
+
+    <div id="view-versus" class="view-container">
+      <div class="versus-calculator">
+        <div class="calc-group">
+          <label>ATACANTE</label>
+          <select class="calc-select" id="calc-attacker"></select>
+        </div>
+        <div class="calc-group" style="align-items: center;">
+          <svg viewBox="0 0 24 24" width="28" height="28" style="color:#aaa;"><path fill="currentColor" d="M11 2L6 7H10V17H6L11 22L16 17H12V7H16L11 2Z"/></svg>
+        </div>
+        <div class="calc-group">
+          <label>DEFENSOR</label>
+          <select class="calc-select" id="calc-defender"></select>
+        </div>
+        <div class="calc-result-box" id="calc-result">
+           <div class="calc-result-number" id="calc-num">1x</div>
+           <div class="calc-result-text" id="calc-txt">Daño Neutro</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="view-cards" class="view-container">
+      <div class="cards-grid" id="cards-wrapper"></div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
