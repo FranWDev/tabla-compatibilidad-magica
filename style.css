@@ -118,7 +118,7 @@ path.line { fill: none; transition: all 0.4s ease; }
 .calc-result-text { font-size: 1rem; text-transform: uppercase; letter-spacing: 1.5px; }
 
 .cards-grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; width: 100%; }
-.type-card { background: rgba(0, 0, 0, 0.5); border: 1px solid var(--border); border-radius: 12px; padding: 20px; width: 280px; border-top: 5px solid; flex-grow: 1; max-width: 350px;}
+.type-card { background: rgba(0, 0, 0, 0.5); border: 1px solid var(--border); border-radius: 12px; padding: 20px; width: 280px; border-top: 5px solid; max-width: 350px;}
 .card-header { display: flex; align-items: center; gap: 10px; font-family: "Cinzel", serif; font-size: 1.3rem; font-weight: bold; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px;}
 .card-section { margin-bottom: 15px; }
 .card-section-title { font-size: 0.8rem; color: #aaa; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;}
