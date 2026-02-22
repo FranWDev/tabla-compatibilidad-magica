@@ -117,8 +117,21 @@ path.line { fill: none; transition: all 0.4s ease; }
 .calc-result-number { font-size: 3rem; font-weight: bold; margin-bottom: 5px; }
 .calc-result-text { font-size: 1rem; text-transform: uppercase; letter-spacing: 1.5px; }
 
-.cards-grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; width: 100%; }
-.type-card { background: rgba(0, 0, 0, 0.5); border: 1px solid var(--border); border-radius: 12px; padding: 20px; width: 280px; border-top: 5px solid; max-width: 350px;}
+/* ── SHARED: CARD GRID ───────────────────────
+   Used by both .cards-grid (section 1) and .syn-cards-row (section 2) */
+.cards-grid, .syn-cards-row {
+  display: flex; flex-wrap: wrap; gap: 20px;
+  justify-content: center; width: 100%;
+}
+
+/* ── SECTION 1: ELEMENT CARDS ─────────────── */
+.type-card {
+  background: rgba(0, 0, 0, 0.5); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px; width: 280px; max-width: 350px;
+  border-top: 5px solid; display: flex; flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.type-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(255,255,255,0.05); }
 .card-header { display: flex; align-items: center; gap: 10px; font-family: "Cinzel", serif; font-size: 1.3rem; font-weight: bold; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px;}
 .card-section { margin-bottom: 15px; }
 .card-section-title { font-size: 0.8rem; color: #aaa; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;}
@@ -126,18 +139,137 @@ path.line { fill: none; transition: all 0.4s ease; }
 .type-badge { display: flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 15px; font-size: 0.8rem; font-weight: bold; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.8); }
 .type-badge svg { font-size: 1.1rem; }
 
-.lore-note { margin-top: 40px; font-family: "Cinzel", serif; color: #aaa; font-size: 0.9rem; text-align: center; opacity: 0.8; max-width: 600px;}
+/* ── SECTION 2: SYNERGY CARDS ─────────────── */
+.syn-cards-wrapper { display: flex; flex-direction: column; gap: 50px; width: 100%; }
+
+.syn-group-header {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 16px 20px; border-radius: 10px; margin-bottom: 16px;
+  border-left: 4px solid;
+}
+.syn-group-header.syn-group-equilibrada { border-color: #2ecc71; background: rgba(46,204,113,0.06); }
+.syn-group-header.syn-group-polarizada  { border-color: #f39c12; background: rgba(243,156,18,0.06); }
+.syn-group-header.syn-group-conflictiva { border-color: #e74c3c; background: rgba(231,76,60,0.06); }
+
+.syn-group-icon { font-size: 1.6rem; display: flex; align-items: center; flex-shrink: 0; margin-top: 2px; }
+.syn-group-equilibrada .syn-group-icon { color: #2ecc71; filter: drop-shadow(0 0 6px #2ecc71); }
+.syn-group-polarizada  .syn-group-icon { color: #f39c12; filter: drop-shadow(0 0 6px #f39c12); }
+.syn-group-conflictiva .syn-group-icon { color: #e74c3c; filter: drop-shadow(0 0 6px #e74c3c); }
+
+.syn-group-title { font-family: "Cinzel", serif; font-size: 1.1rem; font-weight: bold; letter-spacing: 1px; margin-bottom: 4px; }
+.syn-group-equilibrada .syn-group-title { color: #2ecc71; }
+.syn-group-polarizada  .syn-group-title { color: #f39c12; }
+.syn-group-conflictiva .syn-group-title { color: #e74c3c; }
+.syn-group-desc { font-size: 0.82rem; color: #888; line-height: 1.4; }
+
+/* syn-card mirrors type-card exactly in sizing, padding, and border treatment */
+.syn-card {
+  background: rgba(0,0,0,0.5); border: 1px solid var(--border); border-radius: 12px;
+  padding: 20px; width: 280px; max-width: 350px; display: flex; flex-direction: column;
+  gap: 12px; transition: transform 0.2s ease, box-shadow 0.2s ease; border-top: 5px solid;
+}
+.syn-card-equilibrada { border-top-color: #2ecc71; }
+.syn-card-equilibrada:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(46,204,113,0.15); }
+.syn-card-polarizada  { border-top-color: #f39c12; }
+.syn-card-polarizada:hover  { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(243,156,18,0.15); }
+.syn-card-conflictiva { border-top-color: #e74c3c; }
+.syn-card-conflictiva:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(231,76,60,0.15); }
+
+.syn-card-pair {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding-bottom: 12px; border-bottom: 1px solid var(--border);
+}
+.syn-el { display: flex; flex-direction: column; align-items: center; gap: 4px; filter: drop-shadow(0 0 5px currentColor); }
+.syn-el-icon { font-size: 1.8rem; display: flex; }
+.syn-el-name { font-family: "Cinzel", serif; font-size: 0.6rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #fff; }
+.syn-plus { font-size: 1.2rem; color: #444; font-weight: bold; }
+
+/* syn-section-title mirrors card-section-title */
+.syn-section { display: flex; flex-direction: column; gap: 6px; }
+.syn-section-title { font-size: 0.8rem; color: #aaa; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; margin-bottom: 2px; }
+
+
+/* ── SECTION DIVIDER ────────────────────────── */
+.section-divider {
+  display: flex; align-items: center; gap: 16px;
+  width: 100%; max-width: 900px; margin: 60px 0 30px;
+}
+.section-divider-line {
+  flex: 1; height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.15), transparent);
+}
+.section-divider-label {
+  font-family: "Cinzel", serif; font-size: 0.75rem; letter-spacing: 2px;
+  color: #555; text-transform: uppercase; white-space: nowrap;
+}
+
+.section-title {
+  font-family: "Cinzel", serif; letter-spacing: 2px; font-size: 2rem;
+  margin: 0 0 10px; text-shadow: 0 0 20px rgba(255,255,255,0.15);
+  text-align: center;
+}
+
+/* Wrappers that contain each section's view-containers */
+#main-views, #compat-views { width: 100%; display: flex; flex-direction: column; align-items: center; }
+
+/* ── COMPAT MATRIX CELLS ──────────────────── */
+.compat-cell { transition: background 0.2s; padding: 8px 6px !important; }
+.compat-cell-svg { display: flex; justify-content: center; align-items: center; font-size: 1rem; }
+.compat-cell-equilibrada { background: rgba(46,204,113,0.08); }
+.compat-cell-polarizada   { background: rgba(243,156,18,0.08); }
+.compat-cell-conflictiva  { background: rgba(231,76,60,0.08); }
+
+/* ── COMPAT VERSUS RESULT ─────────────────── */
+.compat-versus-result { height: auto !important; }
+.compat-result-desc { font-size: 0.85rem; color: #aaa; margin-top: 8px; text-align: left; width: 100%; }
+.compat-result-subdesc { font-style: italic; color: #777; margin: 0 0 10px; font-size: 0.82rem; }
+.compat-versus-section { margin-bottom: 10px; }
+.compat-versus-label { font-family: "Cinzel", serif; font-size: 0.75rem; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+
+/* ── CRITICAL WEAKNESS BOX ────────────────── */
+.compat-critical-box {
+  border: 1px solid rgba(243,156,18,0.4); border-radius: 8px;
+  padding: 10px 12px; background: rgba(243,156,18,0.06); margin-top: 10px;
+}
+.compat-critical-label {
+  font-family: "Cinzel", serif; font-size: 0.72rem; font-weight: bold;
+  letter-spacing: 1px; color: #f39c12; text-transform: uppercase;
+  display: flex; align-items: center; gap: 5px; margin-bottom: 8px;
+}
+.compat-critical-label svg { color: #f39c12; }
+
+/* ── CONFLICT NOTE ────────────────────────── */
+.compat-conflict-note {
+  font-size: 0.85rem; color: #888; font-style: italic;
+  padding: 10px; border-top: 1px solid var(--border); margin-top: 8px;
+  text-align: center;
+}
+
+
 
 @media (max-width: 768px) {
   h1 { font-size: 1.8rem; }
+  .section-title { font-size: 1.5rem; }
   .node { width: 70px; height: 70px; }
   .node-icon { font-size: 1.6rem; }
   .node-label { font-size: 0.55rem; }
-  .toggle-btn { padding: 8px 15px; font-size: 0.8rem; }
+  .toggle-btn { padding: 8px 12px; font-size: 0.78rem; }
   .matrix-wrapper { padding: 10px; }
-  .type-matrix th, .type-matrix td { padding: 10px 8px; font-size: 0.85rem;}
+  .type-matrix th, .type-matrix td { padding: 10px 8px; font-size: 0.85rem; }
   .matrix-icon { font-size: 1.3rem; }
+  /* Both card grids go single-column */
+  .cards-grid, .syn-cards-row { flex-direction: column; align-items: center; }
+  .type-card, .syn-card { width: 100%; max-width: 100%; }
+  /* compat matrix */
+  .compat-cell { padding: 6px 4px !important; }
+  .compat-cell-svg { font-size: 0.8rem; }
+  .syn-group-header { padding: 12px 14px; }
+  .syn-group-icon { font-size: 1.2rem; }
+  /* versus */
+  .versus-calculator { padding: 20px; }
+  .compat-critical-box { padding: 8px 10px; }
 }
+
 
 @media (max-width: 500px) {
   .node { width: 55px; height: 55px; }
@@ -145,4 +277,11 @@ path.line { fill: none; transition: all 0.4s ease; }
   .node-label { display: none; }
   .mobile-icons-legend { display: flex; }
   .chart-legend { flex-direction: column; align-items: center; gap: 10px; }
+  /* compat section */
+  .section-divider { margin: 40px 0 20px; }
+  h2.section-title { font-size: 1.3rem; }
+  .compat-versus-result { padding: 15px; }
+  .syn-group-title { font-size: 0.95rem; }
+  .compat-critical-label { font-size: 0.65rem; }
 }
+
