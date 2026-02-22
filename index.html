@@ -11,123 +11,277 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-
-    <!-- ══════════════════════════════════════════
-         SECCIÓN 1: TIPOS ELEMENTALES
-    ══════════════════════════════════════════ -->
-    <h1>Tabla de Daños</h1>
-    <div class="subtitle">Tipos de magia de Karmacraft</div>
-
-    <div class="view-controls" id="main-controls">
-      <button class="toggle-btn active" onclick="switchView('chart', this, 'main-controls', 'main-views')">Gráfico Cósmico</button>
-      <button class="toggle-btn" onclick="switchView('matrix', this, 'main-controls', 'main-views')">Matriz Clásica</button>
-      <button class="toggle-btn" onclick="switchView('versus', this, 'main-controls', 'main-views')">Modo Versus</button>
-      <button class="toggle-btn" onclick="switchView('cards', this, 'main-controls', 'main-views')">Tarjetas de Elemento</button>
+    <div id="stars-wrapper">
+      <div id="stars"></div>
+      <div id="stars2"></div>
+      <div id="stars3"></div>
     </div>
 
-    <div id="main-views">
-      <div id="view-chart" class="view-container active">
-        <div class="mobile-icons-legend" id="mobile-legend"></div>
-        <div class="chart-container" id="chart">
-          <svg class="chart-layer" id="lines-layer" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet"></svg>
+    <div id="app-content">
+      <div class="section-toggle-bar">
+        <button
+          id="sec-btn-daños"
+          class="section-tab active"
+          onclick="switchSection('daños')"
+        >
+          Tabla de Daños
+        </button>
+        <button
+          id="sec-btn-sinergias"
+          class="section-tab"
+          onclick="switchSection('sinergias')"
+        >
+          Tabla de Sinergias
+        </button>
+      </div>
+
+      <div id="section-daños" class="main-section active-section">
+        <h1>Tabla de Daños</h1>
+
+        <div class="view-controls" id="main-controls">
+          <button
+            class="toggle-btn active"
+            onclick="switchView('chart', this, 'main-controls', 'main-views')"
+          >
+            Gráfico Cósmico
+          </button>
+          <button
+            class="toggle-btn"
+            onclick="switchView('matrix', this, 'main-controls', 'main-views')"
+          >
+            Matriz Clásica
+          </button>
+          <button
+            class="toggle-btn"
+            onclick="switchView('versus', this, 'main-controls', 'main-views')"
+          >
+            Modo Versus
+          </button>
+          <button
+            class="toggle-btn"
+            onclick="switchView('cards', this, 'main-controls', 'main-views')"
+          >
+            Tarjetas de Elemento
+          </button>
         </div>
-        <div class="chart-legend">
-          <div class="legend-item"><div class="legend-line solid"></div><span><strong>Fuerte contra</strong> (Doble daño)</span></div>
-          <div class="legend-item"><div class="legend-line dashed"></div><span><strong>Débil contra</strong> (Recibe doble)</span></div>
+
+        <div id="main-views">
+          <div id="view-chart" class="view-container active">
+            <div class="chart-container" id="chart">
+              <svg
+                class="chart-layer"
+                id="lines-layer"
+                viewBox="0 0 1000 1000"
+                preserveAspectRatio="xMidYMid meet"
+              ></svg>
+            </div>
+            <div class="chart-legend">
+              <div class="legend-item">
+                <div class="legend-line solid"></div>
+                <span><strong>Fuerte contra</strong> (Doble daño)</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-line dashed"></div>
+                <span><strong>Débil contra</strong> (Recibe doble)</span>
+              </div>
+            </div>
+            <div class="mobile-icons-legend" id="mobile-legend"></div>
+          </div>
+
+          <div id="view-matrix" class="view-container">
+            <div class="matrix-wrapper">
+              <table class="type-matrix" id="matrix-table"></table>
+            </div>
+          </div>
+
+          <div id="view-versus" class="view-container">
+            <div class="versus-calculator">
+              <div class="calc-group">
+                <label>ATACANTE</label>
+                <select class="calc-select" id="calc-attacker"></select>
+              </div>
+              <div class="calc-group" style="align-items: center">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="28"
+                  height="28"
+                  style="color: #aaa"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M11 2L6 7H10V17H6L11 22L16 17H12V7H16L11 2Z"
+                  />
+                </svg>
+              </div>
+              <div class="calc-group">
+                <label>DEFENSOR</label>
+                <select class="calc-select" id="calc-defender"></select>
+              </div>
+              <div class="calc-result-box" id="calc-result">
+                <div class="calc-result-number" id="calc-num">1x</div>
+                <div class="calc-result-text" id="calc-txt">Daño Neutro</div>
+              </div>
+            </div>
+          </div>
+
+          <div id="view-cards" class="view-container">
+            <div class="cards-grid" id="cards-wrapper"></div>
+          </div>
         </div>
       </div>
 
-      <div id="view-matrix" class="view-container">
-        <div class="matrix-wrapper">
-          <table class="type-matrix" id="matrix-table"></table>
+      <div id="section-sinergias" class="main-section">
+        <h1 class="section-title">Tabla de Sinergias</h1>
+
+        <div class="view-controls" id="compat-controls">
+          <button
+            class="toggle-btn active"
+            onclick="
+              switchView(
+                'compat-chart',
+                this,
+                'compat-controls',
+                'compat-views',
+              )
+            "
+          >
+            Gráfico Cósmico
+          </button>
+          <button
+            class="toggle-btn"
+            onclick="
+              switchView(
+                'compat-matrix',
+                this,
+                'compat-controls',
+                'compat-views',
+              )
+            "
+          >
+            Matriz Clásica
+          </button>
+          <button
+            class="toggle-btn"
+            onclick="
+              switchView(
+                'compat-versus',
+                this,
+                'compat-controls',
+                'compat-views',
+              )
+            "
+          >
+            Modo Versus
+          </button>
+          <button
+            class="toggle-btn"
+            onclick="
+              switchView(
+                'compat-cards',
+                this,
+                'compat-controls',
+                'compat-views',
+              )
+            "
+          >
+            Tarjetas de Sinergia
+          </button>
         </div>
-      </div>
 
-      <div id="view-versus" class="view-container">
-        <div class="versus-calculator">
-          <div class="calc-group">
-            <label>ATACANTE</label>
-            <select class="calc-select" id="calc-attacker"></select>
+        <div id="compat-views">
+          <div
+            id="view-compat-chart"
+            class="view-container active"
+            style="max-width: 900px; margin: 0 auto"
+          >
+            <div class="chart-container" id="compat-chart">
+              <svg
+                class="chart-layer"
+                id="compat-lines-layer"
+                viewBox="0 0 1000 1000"
+                preserveAspectRatio="xMidYMid meet"
+              ></svg>
+            </div>
+            <div class="chart-legend">
+              <div class="legend-item">
+                <div
+                  class="legend-line solid"
+                  style="background: #2ecc71"
+                ></div>
+                <span><strong>Sinergias Equilibradas</strong> — Daño x2</span>
+              </div>
+              <div class="legend-item">
+                <div
+                  class="legend-line"
+                  style="
+                    background: transparent;
+                    border-top: 3px dashed #f39c12;
+                    opacity: 1;
+                  "
+                ></div>
+                <span><strong>Sinergias Polarizadas</strong> — Daño x4</span>
+              </div>
+              <div class="legend-item">
+                <div
+                  class="legend-line"
+                  style="
+                    background: transparent;
+                    border-top: 3px dashed #e74c3c;
+                    opacity: 1;
+                  "
+                ></div>
+                <span><strong>Sinergias Inestables</strong> — Daño x4</span>
+              </div>
+            </div>
+            <div class="mobile-icons-legend" id="mobile-legend-compat"></div>
           </div>
-          <div class="calc-group" style="align-items: center;">
-            <svg viewBox="0 0 24 24" width="28" height="28" style="color:#aaa;"><path fill="currentColor" d="M11 2L6 7H10V17H6L11 22L16 17H12V7H16L11 2Z"/></svg>
+
+          <div id="view-compat-matrix" class="view-container">
+            <div class="matrix-wrapper">
+              <table class="type-matrix" id="compat-matrix-table"></table>
+            </div>
           </div>
-          <div class="calc-group">
-            <label>DEFENSOR</label>
-            <select class="calc-select" id="calc-defender"></select>
+
+          <div id="view-compat-versus" class="view-container">
+            <div class="versus-calculator" style="max-width: 550px">
+              <div class="calc-group">
+                <label>TIPO A</label>
+                <select class="calc-select" id="compat-select-a"></select>
+              </div>
+              <div class="calc-group" style="align-items: center">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="28"
+                  height="28"
+                  style="color: #aaa"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M19 8l-4 4h3c0 3.31-2.69 6-6 6a5.87 5.87 0 01-2.8-.7l-1.46 1.46C8.97 19.54 10.43 20 12 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.96.25 2.8.7l1.46-1.46A7.93 7.93 0 0012 4c-4.42 0-8 3.58-8 8H1l4 4 4-4H6z"
+                  />
+                </svg>
+              </div>
+              <div class="calc-group">
+                <label>TIPO B</label>
+                <select class="calc-select" id="compat-select-b"></select>
+              </div>
+              <div
+                class="calc-result-box compat-versus-result"
+                id="compat-result"
+              >
+                <div class="calc-result-number" id="compat-result-icon">—</div>
+                <div class="calc-result-text" id="compat-result-title">
+                  Sin datos de sinergia
+                </div>
+                <div class="compat-result-desc" id="compat-result-desc"></div>
+              </div>
+            </div>
           </div>
-          <div class="calc-result-box" id="calc-result">
-             <div class="calc-result-number" id="calc-num">1x</div>
-             <div class="calc-result-text" id="calc-txt">Daño Neutro</div>
+
+          <div id="view-compat-cards" class="view-container">
+            <div class="syn-cards-wrapper" id="compat-cards-wrapper"></div>
           </div>
         </div>
-      </div>
-
-      <div id="view-cards" class="view-container">
-        <div class="cards-grid" id="cards-wrapper"></div>
-      </div>
-    </div>
-
-    <!-- ══════════════════════════════════════════
-         SECCIÓN 2: COMPATIBILIDADES
-    ══════════════════════════════════════════ -->
-    <div class="section-divider">
-      <div class="section-divider-line"></div>
-      <span class="section-divider-label">Compatibilidades entre Tipos</span>
-      <div class="section-divider-line"></div>
-    </div>
-
-    <h2 class="section-title">Tabla de Sinergias</h2>
-    <div class="subtitle">Cómo interactúan los tipos al combinarse entre sí</div>
-
-    <div class="view-controls" id="compat-controls">
-      <button class="toggle-btn active" onclick="switchView('compat-chart', this, 'compat-controls', 'compat-views')">Gráfico Cósmico</button>
-      <button class="toggle-btn" onclick="switchView('compat-matrix', this, 'compat-controls', 'compat-views')">Matriz Clásica</button>
-      <button class="toggle-btn" onclick="switchView('compat-versus', this, 'compat-controls', 'compat-views')">Modo Versus</button>
-      <button class="toggle-btn" onclick="switchView('compat-cards', this, 'compat-controls', 'compat-views')">Tarjetas de Sinergia</button>
-    </div>
-
-    <div id="compat-views">
-      <div id="view-compat-chart" class="view-container active" style="max-width:900px; margin:0 auto;">
-        <div class="chart-container" id="compat-chart">
-          <svg class="chart-layer" id="compat-lines-layer" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet"></svg>
-        </div>
-        <div class="chart-legend">
-          <div class="legend-item"><div class="legend-line solid" style="background:#2ecc71;"></div><span><strong>Sinergias Equilibradas</strong></span></div>
-          <div class="legend-item"><div class="legend-line" style="background:transparent; border-top:3px dashed #f39c12; opacity:1;"></div><span><strong>Sinergias Polarizadas</strong></span></div>
-          <div class="legend-item"><div class="legend-line" style="background:transparent; border-top:3px dashed #e74c3c; opacity:1;"></div><span><strong>Sinergias Conflictivas</strong></span></div>
-        </div>
-      </div>
-
-      <div id="view-compat-matrix" class="view-container">
-        <div class="matrix-wrapper">
-          <table class="type-matrix" id="compat-matrix-table"></table>
-        </div>
-      </div>
-
-      <div id="view-compat-versus" class="view-container">
-        <div class="versus-calculator" style="max-width:550px">
-          <div class="calc-group">
-            <label>TIPO A</label>
-            <select class="calc-select" id="compat-select-a"></select>
-          </div>
-          <div class="calc-group" style="align-items: center;">
-            <svg viewBox="0 0 24 24" width="28" height="28" style="color:#aaa;"><path fill="currentColor" d="M19 8l-4 4h3c0 3.31-2.69 6-6 6a5.87 5.87 0 01-2.8-.7l-1.46 1.46C8.97 19.54 10.43 20 12 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.96.25 2.8.7l1.46-1.46A7.93 7.93 0 0012 4c-4.42 0-8 3.58-8 8H1l4 4 4-4H6z"/></svg>
-          </div>
-          <div class="calc-group">
-            <label>TIPO B</label>
-            <select class="calc-select" id="compat-select-b"></select>
-          </div>
-          <div class="calc-result-box compat-versus-result" id="compat-result">
-            <div class="calc-result-number" id="compat-result-icon">—</div>
-            <div class="calc-result-text" id="compat-result-title">Sin datos de sinergia</div>
-            <div class="compat-result-desc" id="compat-result-desc"></div>
-          </div>
-        </div>
-      </div>
-
-      <div id="view-compat-cards" class="view-container">
-        <div class="syn-cards-wrapper" id="compat-cards-wrapper"></div>
       </div>
     </div>
 
