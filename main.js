@@ -11,6 +11,9 @@ const icons = {
   eldritch: `<svg viewBox="0 0 24 24" width="1em" height="1em"><path fill="currentColor" d="M12,2L14.8,8.2L21,11L14.8,13.8L12,20L9.2,13.8L3,11L9.2,8.2L12,2M12,8.5A2.5,2.5 0 0,0 9.5,11A2.5,2.5 0 0,0 12,13.5A2.5,2.5 0 0,0 14.5,11A2.5,2.5 0 0,0 12,8.5Z" /></svg>`,
 };
 
+const corruptChars = "§kЖΩΣψλθΦΔΞ";
+const getCorruptHtml = () => `<div class="corrupt-container"><div class="corrupt-text"><div class="corrupt-text-inner">${corruptChars.split("").map((c) => `<span>${c}</span>`).join("")}</div></div></div>`;
+
 const elements = [
   {
     id: "agua",
@@ -404,7 +407,11 @@ function highlightRelations(activeId, elementNodes, svgId, nodeSelector) {
     if (p.dataset.source === activeId) {
       p.style.opacity = "1";
       p.style.strokeWidth = "5";
-      p.style.strokeDasharray = "none";
+      if (p.dataset.isEldritch === "true") {
+        p.style.strokeDasharray = "2,5,10,3";
+      } else {
+        p.style.strokeDasharray = "none";
+      }
       if (elementNodes[p.dataset.target])
         elementNodes[p.dataset.target].style.opacity = "1";
     }
@@ -424,11 +431,12 @@ function resetHighlight(svgId, nodeSelector) {
     if (p.dataset.isEldritch === "true") {
       p.style.opacity = "0";
       p.style.strokeWidth = "4";
+      p.style.strokeDasharray = "2,5,10,3";
     } else {
       p.style.opacity = "0.15";
       p.style.strokeWidth = "2";
+      p.style.strokeDasharray = "none";
     }
-    p.style.strokeDasharray = "none";
   });
   document.querySelectorAll(nodeSelector).forEach((n) => {
     n.style.opacity = "1";
@@ -446,10 +454,17 @@ function initMatrix() {
     html += `<th style="color: ${el.color}"><span class="matrix-icon">${el.icon}</span>${el.label}</th>`;
   });
   html += "</tr>";
+
+  const eldritchEl = elements.find((e) => e.id === "eldritch");
+
   elements.forEach((attacker) => {
     html += `<tr><th class="row-header" style="color: ${attacker.color}"><span class="matrix-icon">${attacker.icon}</span> ${attacker.label}</th>`;
     elements.forEach((defender) => {
-      if (attacker.strongAgainst.includes(defender.id)) {
+      const isEldritch = attacker.id === "eldritch" || defender.id === "eldritch";
+
+      if (isEldritch) {
+        html += `<td class="mult-eldritch">${getCorruptHtml()}</td>`;
+      } else if (attacker.strongAgainst.includes(defender.id)) {
         html += `<td class="mult-2x">2x</td>`;
       } else if (attacker.weakAgainst.includes(defender.id)) {
         html += `<td class="mult-half">½</td>`;
@@ -481,7 +496,18 @@ function initCalculator() {
     const box = document.getElementById("calc-result");
     const num = document.getElementById("calc-num");
     const txt = document.getElementById("calc-txt");
-    if (att.strongAgainst.includes(defId)) {
+    const isEldritch = att.id === "eldritch" || defId === "eldritch";
+
+    box.classList.remove("mult-eldritch");
+
+    if (isEldritch) {
+      box.classList.add("mult-eldritch");
+      box.style.borderColor = "#b533ff";
+      box.style.color = "#b533ff";
+      box.style.boxShadow = "0 0 20px rgba(181, 51, 255, 0.2)";
+      num.innerHTML = getCorruptHtml();
+      txt.innerText = "";
+    } else if (att.strongAgainst.includes(defId)) {
       box.style.borderColor = "#2ecc71";
       box.style.color = "#2ecc71";
       box.style.boxShadow = "0 0 20px rgba(46,204,113,0.2)";
@@ -518,16 +544,35 @@ function initCards() {
     const el = elements.find((e) => e.id === id);
     return `<div class="type-badge" style="background-color: ${el.color};">${el.icon} ${el.label}</div>`;
   };
+  const createCorruptBadge = () =>
+    `<div class="corrupt-badge">${getCorruptHtml()}</div>`;
+
   let html = "";
   elements.forEach((el) => {
+    const isEldritch = el.id === "eldritch";
+
+    const strongAgainst = isEldritch
+      ? ["corrupt"]
+      : el.strongAgainst.filter((id) => id !== "eldritch");
+    const weakAgainst = isEldritch
+      ? ["corrupt"]
+      : el.weakAgainst.filter((id) => id !== "eldritch");
+
+    const renderBadges = (list) => {
+      if (!list.length) return `<div class="mult-neutral">-</div>`;
+      return list
+        .map((id) => (id === "corrupt" ? createCorruptBadge() : createBadge(id)))
+        .join("");
+    };
+
     html += `
       <div class="type-card" style="border-top-color: ${el.color}">
         <div class="card-header" style="color: ${el.color}">${el.icon} ${el.label}</div>
-        <div class="card-section"><div class="card-section-title">Hace doble daño a (2x):</div>
-          <div class="badge-list">${el.strongAgainst.map((id) => createBadge(id)).join("")}</div>
+        <div class="card-section"><div class="card-section-title" style="${isEldritch ? "color:#b533ff;" : ""}">Hace doble daño a (2x):</div>
+          <div class="badge-list">${renderBadges(strongAgainst)}</div>
         </div>
-        <div class="card-section" style="margin-top: 15px;"><div class="card-section-title">Recibe doble daño de (2x):</div>
-          <div class="badge-list">${el.weakAgainst.map((id) => createBadge(id)).join("")}</div>
+        <div class="card-section" style="margin-top: 15px;"><div class="card-section-title" style="${isEldritch ? "color:#b533ff;" : ""}">Recibe doble daño de (2x):</div>
+          <div class="badge-list">${renderBadges(weakAgainst)}</div>
         </div>
       </div>`;
   });
