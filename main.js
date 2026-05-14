@@ -9,6 +9,7 @@ const icons = {
   invocador: `<svg viewBox="0 0 24 24" width="1em" height="1em"><path fill="currentColor" d="M8 21V19H14V21H8M10 3V5H16V3H10M20 8V16C20 17.1 19.1 18 18 18H16V16H18V8H6V16H8V18H6C4.9 18 4 17.1 4 16V8C4 6.9 4.9 6 6 6H8V8H10V6H14V8H16V6H18C19.1 6 20 6.9 20 8M14 10H10V14H14V10Z"/></svg>`,
   ender: `<svg viewBox="0 0 24 24" width="1em" height="1em"><path fill="currentColor" d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z"/></svg>`,
   eldritch: `<svg viewBox="0 0 24 24" width="1em" height="1em"><path fill="currentColor" d="M12,2L14.8,8.2L21,11L14.8,13.8L12,20L9.2,13.8L3,11L9.2,8.2L12,2M12,8.5A2.5,2.5 0 0,0 9.5,11A2.5,2.5 0 0,0 12,13.5A2.5,2.5 0 0,0 14.5,11A2.5,2.5 0 0,0 12,8.5Z" /></svg>`,
+  tierra: `<svg viewBox="0 0 24 24" width="1em" height="1em"><path fill="currentColor" d="M14,6L10.25,11L13.1,14.8L11.5,16C9.81,13.75 7,10 7,10L1,18H23L14,6Z" /></svg>`,
 };
 
 const corruptChars = "§kЖΩΣψλθΦΔΞ";
@@ -20,7 +21,7 @@ const elements = [
     label: "Agua",
     icon: icons.agua,
     color: "#3498db",
-    strongAgainst: ["fuego", "ender"],
+    strongAgainst: ["fuego", "ender", "tierra"],
     weakAgainst: ["naturaleza", "electrico", "eldritch"],
   },
   {
@@ -29,15 +30,23 @@ const elements = [
     icon: icons.fuego,
     color: "#d35400",
     strongAgainst: ["naturaleza", "hielo"],
-    weakAgainst: ["agua", "sangre", "eldritch"],
+    weakAgainst: ["agua", "sangre", "tierra", "eldritch"],
   },
   {
     id: "naturaleza",
     label: "Naturaleza",
     icon: icons.naturaleza,
     color: "#2ecc71",
-    strongAgainst: ["agua", "electrico"],
+    strongAgainst: ["agua", "electrico", "tierra"],
     weakAgainst: ["fuego", "hielo", "eldritch"],
+  },
+  {
+    id: "tierra",
+    label: "Tierra",
+    icon: icons.tierra,
+    color: "#a67c52",
+    strongAgainst: ["electrico", "fuego"],
+    weakAgainst: ["agua", "naturaleza", "eldritch"],
   },
   {
     id: "hielo",
@@ -53,7 +62,7 @@ const elements = [
     icon: icons.electrico,
     color: "#f39c12",
     strongAgainst: ["agua", "invocador"],
-    weakAgainst: ["naturaleza", "ender", "eldritch"],
+    weakAgainst: ["naturaleza", "ender", "tierra", "eldritch"],
   },
   {
     id: "sagrado",
@@ -102,6 +111,7 @@ const elements = [
       "sangre",
       "invocador",
       "ender",
+      "tierra",
       "eldritch",
     ],
     weakAgainst: ["eldritch"],
@@ -173,6 +183,10 @@ const conflictNotas = {
   "ender|sagrado": "Ender consume Sagrado.",
   "invocador|sangre": "Sangre corrompe Invocador.",
   "ender|invocador": "Invocador acorrala a Ender.",
+  "electrico|tierra": "Tierra aísla Eléctrico.",
+  "fuego|tierra": "Tierra sofoca Fuego.",
+  "agua|tierra": "Agua erosiona Tierra.",
+  "naturaleza|tierra": "Naturaleza enraíza en Tierra.",
 };
 
 function buildCompatData(elementList) {
