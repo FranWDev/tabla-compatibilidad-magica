@@ -33,6 +33,13 @@
         >
           Tabla de Sinergias
         </button>
+        <button
+          id="sec-btn-entornos"
+          class="section-tab"
+          onclick="switchSection('entornos')"
+        >
+          Entornos Mágicos
+        </button>
       </div>
 
       <div id="section-daños" class="main-section active-section">
@@ -78,11 +85,11 @@
             <div class="chart-legend">
               <div class="legend-item">
                 <div class="legend-line solid"></div>
-                <span><strong>Fuerte contra</strong> (Doble daño)</span>
+                <span><strong>Fuerte contra</strong> (1.5x daño)</span>
               </div>
               <div class="legend-item">
                 <div class="legend-line dashed"></div>
-                <span><strong>Débil contra</strong> (Recibe doble)</span>
+                <span><strong>Débil contra</strong> (Recibe 1.5x)</span>
               </div>
             </div>
             <div class="mobile-icons-legend" id="mobile-legend"></div>
@@ -280,6 +287,87 @@
 
           <div id="view-compat-cards" class="view-container">
             <div class="syn-cards-wrapper" id="compat-cards-wrapper"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="section-entornos" class="main-section">
+        <h1 class="section-title">Entornos Mágicos</h1>
+
+        <div class="view-controls" id="env-controls">
+          <button
+            class="toggle-btn active"
+            onclick="switchView('env-catalog', this, 'env-controls', 'env-views')"
+          >
+            Catálogo
+          </button>
+          <button
+            class="toggle-btn"
+            onclick="switchView('env-matrix', this, 'env-controls', 'env-views')"
+          >
+            Matriz de Magos
+          </button>
+          <button
+            class="toggle-btn"
+            onclick="switchView('env-resistances', this, 'env-controls', 'env-views')"
+          >
+            Resistencias
+          </button>
+          <button
+            class="toggle-btn"
+            onclick="switchView('env-versus', this, 'env-controls', 'env-views')"
+          >
+            Modo Versus
+          </button>
+          <button
+            class="toggle-btn"
+            onclick="switchView('env-guide', this, 'env-controls', 'env-views')"
+          >
+            Diseño y Balance
+          </button>
+        </div>
+
+        <div id="env-views">
+          <div id="view-env-catalog" class="view-container active">
+            <div class="env-priority-tree" id="env-priority-tree"></div>
+            <div class="env-catalog-grid" id="env-catalog-grid"></div>
+          </div>
+
+          <div id="view-env-matrix" class="view-container">
+            <div class="matrix-wrapper">
+              <table class="type-matrix" id="env-matrix-table"></table>
+            </div>
+            <div class="chart-legend" id="env-matrix-legend"></div>
+          </div>
+
+          <div id="view-env-resistances" class="view-container">
+            <div class="env-resistances-wrapper" id="env-resistances-wrapper"></div>
+          </div>
+
+          <div id="view-env-versus" class="view-container">
+            <div class="versus-calculator" style="max-width: 650px; margin: 0 auto;">
+              <div class="calc-group">
+                <label>CLASE / ELEMENTO</label>
+                <select class="calc-select" id="env-versus-player"></select>
+              </div>
+              <div class="calc-group" style="align-items: center">
+                <svg viewBox="0 0 24 24" width="28" height="28" style="color: #aaa">
+                  <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                </svg>
+              </div>
+              <div class="calc-group">
+                <label>ENTORNO ACTIVO</label>
+                <select class="calc-select" id="env-versus-location"></select>
+              </div>
+              <div class="calc-result-box" id="env-versus-result" style="display: block; text-align: left; padding: 20px; min-height: auto; width: 100%; box-sizing: border-box;">
+                <h4 style="margin: 0 0 15px 0; font-family: 'Cinzel', serif; font-size: 1.2em; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px;">Resumen del Impacto Ambiental</h4>
+                <div id="env-versus-content"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="view-env-guide" class="view-container">
+            <div class="env-guide-wrapper" id="env-guide-wrapper"></div>
           </div>
         </div>
       </div>

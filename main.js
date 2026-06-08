@@ -479,7 +479,7 @@ function initMatrix() {
       if (isEldritch) {
         html += `<td class="mult-eldritch">${getCorruptHtml()}</td>`;
       } else if (attacker.strongAgainst.includes(defender.id)) {
-        html += `<td class="mult-2x">2x</td>`;
+        html += `<td class="mult-2x">1.5x</td>`;
       } else if (attacker.weakAgainst.includes(defender.id)) {
         html += `<td class="mult-half">½</td>`;
       } else if (attacker.id === defender.id) {
@@ -525,7 +525,7 @@ function initCalculator() {
       box.style.borderColor = "#2ecc71";
       box.style.color = "#2ecc71";
       box.style.boxShadow = "0 0 20px rgba(46,204,113,0.2)";
-      num.innerText = "2x";
+      num.innerText = "1.5x";
       txt.innerText = "Súper Efectivo";
     } else if (att.weakAgainst.includes(defId)) {
       box.style.borderColor = "#e74c3c";
@@ -582,10 +582,10 @@ function initCards() {
     html += `
       <div class="type-card" style="border-top-color: ${el.color}">
         <div class="card-header" style="color: ${el.color}">${el.icon} ${el.label}</div>
-        <div class="card-section"><div class="card-section-title" style="${isEldritch ? "color:#b533ff;" : ""}">Hace doble daño a (2x):</div>
+        <div class="card-section"><div class="card-section-title" style="${isEldritch ? "color:#b533ff;" : ""}">Hace daño incrementado (1.5x):</div>
           <div class="badge-list">${renderBadges(strongAgainst)}</div>
         </div>
-        <div class="card-section" style="margin-top: 15px;"><div class="card-section-title" style="${isEldritch ? "color:#b533ff;" : ""}">Recibe doble daño de (2x):</div>
+        <div class="card-section" style="margin-top: 15px;"><div class="card-section-title" style="${isEldritch ? "color:#b533ff;" : ""}">Recibe daño incrementado (1.5x):</div>
           <div class="badge-list">${renderBadges(weakAgainst)}</div>
         </div>
       </div>`;
@@ -791,13 +791,13 @@ function initCompatVersus() {
     let detailHtml = `<p class="compat-result-subdesc">${entry.descripcion}</p>`;
 
     if (entry.tipo === "equilibrada") {
-      detailHtml += `<div class="compat-versus-section"><div class="compat-versus-label" style="color:#2ecc71">Fuerte contra (x2)</div><div class="badge-list">${entry.strongAgainst.map(makeBadge).join("")}</div></div>`;
-      detailHtml += `<div class="compat-versus-section"><div class="compat-versus-label" style="color:#e74c3c">Débil contra (x2)</div><div class="badge-list">${entry.weakAgainst.map(makeBadge).join("")}</div></div>`;
+      detailHtml += `<div class="compat-versus-section"><div class="compat-versus-label" style="color:#2ecc71">Fuerte contra (1.5x)</div><div class="badge-list">${entry.strongAgainst.map(makeBadge).join("")}</div></div>`;
+      detailHtml += `<div class="compat-versus-section"><div class="compat-versus-label" style="color:#e74c3c">Débil contra (1.5x)</div><div class="badge-list">${entry.weakAgainst.map(makeBadge).join("")}</div></div>`;
     } else if (entry.tipo === "polarizada") {
-      detailHtml += `<div class="compat-versus-section"><div class="compat-versus-label" style="color:#2ecc71">Fuerte contra (x2)</div><div class="badge-list">${entry.strongAgainst.map(makeBadge).join("")}</div></div>`;
+      detailHtml += `<div class="compat-versus-section"><div class="compat-versus-label" style="color:#2ecc71">Fuerte contra (1.5x)</div><div class="badge-list">${entry.strongAgainst.map(makeBadge).join("")}</div></div>`;
       const weakRest = entry.weakAgainst || [];
       if (weakRest.length) {
-        detailHtml += `<div class="compat-versus-section"><div class="compat-versus-label" style="color:#e74c3c">Débil contra (x2)</div><div class="badge-list">${weakRest.map(makeBadge).join("")}</div></div>`;
+        detailHtml += `<div class="compat-versus-section"><div class="compat-versus-label" style="color:#e74c3c">Débil contra (1.5x)</div><div class="badge-list">${weakRest.map(makeBadge).join("")}</div></div>`;
       }
       const crits = entry.criticalWeaknesses || [];
       if (crits.length) {
@@ -805,11 +805,11 @@ function initCompatVersus() {
       }
     } else if (entry.tipo === "conflictiva") {
       if ((entry.strongAgainst || []).length) {
-        detailHtml += `<div class="compat-versus-section"><div class="compat-versus-label" style="color:#2ecc71">Fuerte contra (x2)</div><div class="badge-list">${entry.strongAgainst.map(makeBadge).join("")}</div></div>`;
+        detailHtml += `<div class="compat-versus-section"><div class="compat-versus-label" style="color:#2ecc71">Fuerte contra (1.5x)</div><div class="badge-list">${entry.strongAgainst.map(makeBadge).join("")}</div></div>`;
       }
 
       if ((entry.weakAgainst || []).length) {
-        detailHtml += `<div class="compat-versus-section"><div class="compat-versus-label" style="color:#e74c3c">Débil contra (x2)</div><div class="badge-list">${entry.weakAgainst.map(makeBadge).join("")}</div></div>`;
+        detailHtml += `<div class="compat-versus-section"><div class="compat-versus-label" style="color:#e74c3c">Débil contra (1.5x)</div><div class="badge-list">${entry.weakAgainst.map(makeBadge).join("")}</div></div>`;
       }
 
       const extCrits = entry.criticalWeaknesses || [];
@@ -873,23 +873,23 @@ function initCompatCards() {
 
       if (grupo.tipo === "equilibrada") {
         html += `<div class="syn-section">
-          <div class="syn-section-title" style="color:#2ecc71">Fuerte contra (x2)</div>
+          <div class="syn-section-title" style="color:#2ecc71">Fuerte contra (1.5x)</div>
           <div class="badge-list">${par.strongAgainst.map(makeBadge).join("")}</div>
         </div>
         <div class="syn-section">
-          <div class="syn-section-title" style="color:#e74c3c">Débil contra (x2)</div>
+          <div class="syn-section-title" style="color:#e74c3c">Débil contra (1.5x)</div>
           <div class="badge-list">${par.weakAgainst.map(makeBadge).join("")}</div>
         </div>`;
       } else if (grupo.tipo === "polarizada") {
         const crits = par.criticalWeaknesses || [];
         const weakRest = par.weakAgainst || [];
         html += `<div class="syn-section">
-          <div class="syn-section-title" style="color:#2ecc71">Fuerte contra (x2)</div>
+          <div class="syn-section-title" style="color:#2ecc71">Fuerte contra (1.5x)</div>
           <div class="badge-list">${(par.strongAgainst || []).map(makeBadge).join("")}</div>
         </div>`;
         if (weakRest.length) {
           html += `<div class="syn-section">
-            <div class="syn-section-title" style="color:#e74c3c">Débil contra (x2)</div>
+            <div class="syn-section-title" style="color:#e74c3c">Débil contra (1.5x)</div>
             <div class="badge-list">${weakRest.map(makeBadge).join("")}</div>
           </div>`;
         }
@@ -902,14 +902,14 @@ function initCompatCards() {
       } else if (grupo.tipo === "conflictiva") {
         if ((par.strongAgainst || []).length) {
           html += `<div class="syn-section">
-            <div class="syn-section-title" style="color:#2ecc71">Fuerte contra (x2)</div>
+            <div class="syn-section-title" style="color:#2ecc71">Fuerte contra (1.5x)</div>
             <div class="badge-list">${par.strongAgainst.map(makeBadge).join("")}</div>
           </div>`;
         }
 
         if ((par.weakAgainst || []).length) {
           html += `<div class="syn-section">
-            <div class="syn-section-title" style="color:#e74c3c">Débil contra (x2)</div>
+            <div class="syn-section-title" style="color:#e74c3c">Débil contra (1.5x)</div>
             <div class="badge-list">${par.weakAgainst.map(makeBadge).join("")}</div>
           </div>`;
         }
@@ -940,6 +940,963 @@ function initCompatCards() {
   container.innerHTML = html;
 }
 
+// ==========================================
+// SISTEMA DE ENTORNOS MÁGICOS
+// ==========================================
+
+const envIcons = {
+  doubleUp: `<svg viewBox="0 0 24 24" width="1.2em" height="1.2em" class="env-icon-buff-double"><path fill="currentColor" d="M7 14l5-5 5 5H7zm0 5l5-5 5 5H7z"/></svg>`,
+  singleUp: `<svg viewBox="0 0 24 24" width="1.2em" height="1.2em" class="env-icon-buff-single"><path fill="currentColor" d="M7 14l5-5 5 5H7z"/></svg>`,
+  neutral: `<svg viewBox="0 0 24 24" width="1.2em" height="1.2em" class="env-icon-neutral"><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>`,
+  singleDown: `<svg viewBox="0 0 24 24" width="1.2em" height="1.2em" class="env-icon-debuff-single"><path fill="currentColor" d="M7 10l5 5 5-5H7z"/></svg>`,
+  doubleDown: `<svg viewBox="0 0 24 24" width="1.2em" height="1.2em" class="env-icon-debuff-double"><path fill="currentColor" d="M7 10l5 5 5-5H7zm0-5l5 5 5-5H7z"/></svg>`,
+  shield: `<svg viewBox="0 0 24 24" width="1.2em" height="1.2em"><path fill="currentColor" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>`
+};
+
+const envCategories = {
+  fisico: "Estado Físico",
+  clima: "Clima Superficial / Biomas Externos",
+  cavernas: "Biomas Cavernosos",
+  dimensiones: "Dimensiones"
+};
+
+const envCatalog = [
+  // Físicos
+  { id: "ARDIENDO", name: "Ardiendo", cat: "fisico", desc: "El jugador está en llamas", priority: 1 },
+  { id: "EN_LAVA", name: "En Lava", cat: "fisico", desc: "Sumergido en lava", priority: 2 },
+  { id: "SUMERGIDO", name: "Sumergido", cat: "fisico", desc: "Completamente bajo el agua", priority: 3 },
+  { id: "MOJADO", name: "Mojado / Lluvia", cat: "fisico", desc: "Superficialmente húmedo (lluvia/agua)", priority: 4 },
+  { id: "VIDA_CRITICA", name: "Vida Crítica", cat: "fisico", desc: "Cercano a la muerte", priority: 5 },
+  { id: "CERCA_LAVA", name: "Cerca de Lava", cat: "fisico", desc: "Calor extremo radiante", priority: 6 },
+  { id: "TORMENTA", name: "Tormenta", cat: "fisico", desc: "Tormenta eléctrica activa", priority: 7 },
+  { id: "NOCHE", name: "Noche", cat: "fisico", desc: "Oscuridad del mundo", priority: 8 },
+  { id: "ALTURA_CELESTIAL", name: "Altura", cat: "fisico", desc: "Cumbres del mundo", priority: 9 },
+
+  // Climas Superficiales
+  { id: "CLIMA_CALIDO", name: "Clima Cálido", cat: "clima", desc: "Ambientes secos o de calor severo" },
+  { id: "CLIMA_FRIO", name: "Clima Frío", cat: "clima", desc: "Ambientes helados o de temperaturas frías" },
+  { id: "CLIMA_NEVADO", name: "Clima Nevado", cat: "clima", desc: "Tormenta de nieve activa encima del jugador" },
+
+  // Cavernas
+  { id: "CUEVA_MAGMATICA", name: "Cueva Magmática", cat: "cavernas", desc: "Calor infernal subterráneo" },
+  { id: "CUEVA_FRIA", name: "Cueva Fría", cat: "cavernas", desc: "Frío glacial subterráneo" },
+  { id: "CUEVA_FUNGAL", name: "Cueva Fungal", cat: "cavernas", desc: "Vida vegetal y hongos" },
+  { id: "CUEVA_OSCURA", name: "Cueva Oscura", cat: "cavernas", desc: "Oscuridad ancestral" },
+  { id: "CUEVA_CRISTAL", name: "Cueva de Cristal", cat: "cavernas", desc: "Resonancia arcana" },
+  { id: "CUEVA_PROFUNDA", name: "Cueva Profunda", cat: "cavernas", desc: "Profundidades infestadas" },
+  { id: "CUEVA_PIEDRA", name: "Cueva de Piedra", cat: "cavernas", desc: "Tierra y roca densa" },
+  { id: "CUEVA_JUNGLA", name: "Cueva de Jungla", cat: "cavernas", desc: "Selva subterránea húmeda" },
+
+  // Dimensiones
+  { id: "DIMENSION_NETHER", name: "Nether", cat: "dimensiones", desc: "Reino del fuego y el caos" },
+  { id: "DIMENSION_END", name: "End", cat: "dimensiones", desc: "Vacío entre mundos" }
+];
+
+const envMagesMatrix = {
+  agua: {
+    ARDIENDO: { val: "doubleDown" },
+    EN_LAVA: { val: "doubleDown" },
+    SUMERGIDO: { val: "doubleUp" },
+    MOJADO: { val: "singleUp" },
+    VIDA_CRITICA: { val: "neutral" },
+    CERCA_LAVA: { val: "singleDown" },
+    TORMENTA: { val: "singleUp" },
+    NOCHE: { val: "neutral" },
+    ALTURA_CELESTIAL: { val: "neutral" },
+    CLIMA_CALIDO: { val: "singleDown" },
+    CLIMA_FRIO: { val: "neutral" },
+    CLIMA_NEVADO: { val: "neutral" },
+    CUEVA_MAGMATICA: { val: "singleDown" },
+    CUEVA_FRIA: { val: "singleUp" },
+    CUEVA_FUNGAL: { val: "singleUp" },
+    CUEVA_OSCURA: { val: "neutral" },
+    CUEVA_CRISTAL: { val: "neutral" },
+    CUEVA_PROFUNDA: { val: "neutral" },
+    CUEVA_PIEDRA: { val: "neutral" },
+    CUEVA_JUNGLA: { val: "singleUp" },
+    DIMENSION_NETHER: { val: "doubleDown" },
+    DIMENSION_END: { val: "neutral" }
+  },
+  fuego: {
+    ARDIENDO: { val: "doubleUp" },
+    EN_LAVA: { val: "doubleUp" },
+    SUMERGIDO: { val: "doubleDown" },
+    MOJADO: { val: "singleDown" },
+    VIDA_CRITICA: { val: "neutral" },
+    CERCA_LAVA: { val: "doubleUp" },
+    TORMENTA: { val: "singleDown" },
+    NOCHE: { val: "singleDown" },
+    ALTURA_CELESTIAL: { val: "neutral" },
+    CLIMA_CALIDO: { val: "singleUp" },
+    CLIMA_FRIO: { val: "singleDown" },
+    CLIMA_NEVADO: { val: "doubleDown" },
+    CUEVA_MAGMATICA: { val: "doubleUp" },
+    CUEVA_FRIA: { val: "singleDown" },
+    CUEVA_FUNGAL: { val: "neutral" },
+    CUEVA_OSCURA: { val: "neutral" },
+    CUEVA_CRISTAL: { val: "neutral" },
+    CUEVA_PROFUNDA: { val: "neutral" },
+    CUEVA_PIEDRA: { val: "neutral" },
+    CUEVA_JUNGLA: { val: "singleDown" },
+    DIMENSION_NETHER: { val: "doubleUp" },
+    DIMENSION_END: { val: "singleDown" }
+  },
+  naturaleza: {
+    ARDIENDO: { val: "singleDown" },
+    EN_LAVA: { val: "doubleDown" },
+    SUMERGIDO: { val: "singleUp" },
+    MOJADO: { val: "doubleUp" },
+    VIDA_CRITICA: { val: "neutral" },
+    CERCA_LAVA: { val: "singleDown" },
+    TORMENTA: { val: "singleDown" },
+    NOCHE: { val: "singleUp" },
+    ALTURA_CELESTIAL: { val: "neutral" },
+    CLIMA_CALIDO: { val: "singleDown" },
+    CLIMA_FRIO: { val: "neutral" },
+    CLIMA_NEVADO: { val: "neutral" },
+    CUEVA_MAGMATICA: { val: "singleDown" },
+    CUEVA_FRIA: { val: "singleDown" },
+    CUEVA_FUNGAL: { val: "doubleUp" },
+    CUEVA_OSCURA: { val: "neutral" },
+    CUEVA_CRISTAL: { val: "neutral" },
+    CUEVA_PROFUNDA: { val: "singleDown" },
+    CUEVA_PIEDRA: { val: "neutral" },
+    CUEVA_JUNGLA: { val: "doubleUp" },
+    DIMENSION_NETHER: { val: "singleDown" },
+    DIMENSION_END: { val: "neutral" }
+  },
+  tierra: {
+    ARDIENDO: { val: "neutral" },
+    EN_LAVA: { val: "neutral" },
+    SUMERGIDO: { val: "singleDown" },
+    MOJADO: { val: "singleDown" },
+    VIDA_CRITICA: { val: "neutral" },
+    CERCA_LAVA: { val: "singleUp" },
+    TORMENTA: { val: "neutral" },
+    NOCHE: { val: "neutral" },
+    ALTURA_CELESTIAL: { val: "singleDown" },
+    CLIMA_CALIDO: { val: "neutral" },
+    CLIMA_FRIO: { val: "neutral" },
+    CLIMA_NEVADO: { val: "neutral" },
+    CUEVA_MAGMATICA: { val: "singleUp" },
+    CUEVA_FRIA: { val: "singleDown" },
+    CUEVA_FUNGAL: { val: "neutral" },
+    CUEVA_OSCURA: { val: "neutral" },
+    CUEVA_CRISTAL: { val: "singleUp" },
+    CUEVA_PROFUNDA: { val: "neutral" },
+    CUEVA_PIEDRA: { val: "doubleUp" },
+    CUEVA_JUNGLA: { val: "singleUp" },
+    DIMENSION_NETHER: { val: "singleUp" },
+    DIMENSION_END: { val: "doubleDown" }
+  },
+  hielo: {
+    ARDIENDO: { val: "doubleDown" },
+    EN_LAVA: { val: "doubleDown" },
+    SUMERGIDO: { val: "singleUp" },
+    MOJADO: { val: "singleUp" },
+    VIDA_CRITICA: { val: "neutral" },
+    CERCA_LAVA: { val: "singleDown" },
+    TORMENTA: { val: "neutral" },
+    NOCHE: { val: "singleUp" },
+    ALTURA_CELESTIAL: { val: "neutral" },
+    CLIMA_CALIDO: { val: "singleDown" },
+    CLIMA_FRIO: { val: "singleUp" },
+    CLIMA_NEVADO: { val: "doubleUp" },
+    CUEVA_MAGMATICA: { val: "doubleDown" },
+    CUEVA_FRIA: { val: "doubleUp" },
+    CUEVA_FUNGAL: { val: "neutral" },
+    CUEVA_OSCURA: { val: "neutral" },
+    CUEVA_CRISTAL: { val: "singleUp" },
+    CUEVA_PROFUNDA: { val: "neutral" },
+    CUEVA_PIEDRA: { val: "neutral" },
+    CUEVA_JUNGLA: { val: "neutral" },
+    DIMENSION_NETHER: { val: "doubleDown" },
+    DIMENSION_END: { val: "doubleUp" }
+  },
+  electrico: {
+    ARDIENDO: { val: "singleDown" },
+    EN_LAVA: { val: "singleDown" },
+    SUMERGIDO: { val: "doubleUp" },
+    MOJADO: { val: "singleUp" },
+    VIDA_CRITICA: { val: "neutral" },
+    CERCA_LAVA: { val: "singleDown" },
+    TORMENTA: { val: "doubleUp" },
+    NOCHE: { val: "neutral" },
+    ALTURA_CELESTIAL: { val: "singleUp" },
+    CLIMA_CALIDO: { val: "neutral" },
+    CLIMA_FRIO: { val: "neutral" },
+    CLIMA_NEVADO: { val: "neutral" },
+    CUEVA_MAGMATICA: { val: "singleDown" },
+    CUEVA_FRIA: { val: "neutral" },
+    CUEVA_FUNGAL: { val: "neutral" },
+    CUEVA_OSCURA: { val: "neutral" },
+    CUEVA_CRISTAL: { val: "doubleUp" },
+    CUEVA_PROFUNDA: { val: "singleDown" },
+    CUEVA_PIEDRA: { val: "singleDown" },
+    CUEVA_JUNGLA: { val: "neutral" },
+    DIMENSION_NETHER: { val: "singleDown" },
+    DIMENSION_END: { val: "singleUp" }
+  },
+  sagrado: {
+    ARDIENDO: { val: "singleDown" },
+    EN_LAVA: { val: "doubleDown" },
+    SUMERGIDO: { val: "neutral" },
+    MOJADO: { val: "neutral" },
+    VIDA_CRITICA: { val: "doubleUp" },
+    CERCA_LAVA: { val: "singleDown" },
+    TORMENTA: { val: "neutral" },
+    NOCHE: { val: "singleDown" },
+    ALTURA_CELESTIAL: { val: "doubleUp" },
+    CLIMA_CALIDO: { val: "neutral" },
+    CLIMA_FRIO: { val: "neutral" },
+    CLIMA_NEVADO: { val: "neutral" },
+    CUEVA_MAGMATICA: { val: "singleDown" },
+    CUEVA_FRIA: { val: "neutral" },
+    CUEVA_FUNGAL: { val: "neutral" },
+    CUEVA_OSCURA: { val: "doubleDown" },
+    CUEVA_CRISTAL: { val: "singleUp" },
+    CUEVA_PROFUNDA: { val: "neutral" },
+    CUEVA_PIEDRA: { val: "neutral" },
+    CUEVA_JUNGLA: { val: "neutral" },
+    DIMENSION_NETHER: { val: "singleDown" },
+    DIMENSION_END: { val: "doubleUp" }
+  },
+  sangre: {
+    ARDIENDO: { val: "singleDown" },
+    EN_LAVA: { val: "doubleDown" },
+    SUMERGIDO: { val: "neutral" },
+    MOJADO: { val: "neutral" },
+    VIDA_CRITICA: { val: "doubleUp" },
+    CERCA_LAVA: { val: "singleDown" },
+    TORMENTA: { val: "neutral" },
+    NOCHE: { val: "singleUp" },
+    ALTURA_CELESTIAL: { val: "singleDown" },
+    CLIMA_CALIDO: { val: "neutral" },
+    CLIMA_FRIO: { val: "neutral" },
+    CLIMA_NEVADO: { val: "neutral" },
+    CUEVA_MAGMATICA: { val: "neutral" },
+    CUEVA_FRIA: { val: "singleDown" },
+    CUEVA_FUNGAL: { val: "singleDown" },
+    CUEVA_OSCURA: { val: "neutral" },
+    CUEVA_CRISTAL: { val: "neutral" },
+    CUEVA_PROFUNDA: { val: "doubleUp" },
+    CUEVA_PIEDRA: { val: "neutral" },
+    CUEVA_JUNGLA: { val: "neutral" },
+    DIMENSION_NETHER: { val: "doubleUp" },
+    DIMENSION_END: { val: "singleDown" }
+  },
+  invocador: {
+    ARDIENDO: { val: "singleDown" },
+    EN_LAVA: { val: "doubleDown" },
+    SUMERGIDO: { val: "neutral" },
+    MOJADO: { val: "neutral" },
+    VIDA_CRITICA: { val: "singleUp" },
+    CERCA_LAVA: { val: "singleDown" },
+    TORMENTA: { val: "neutral" },
+    NOCHE: { val: "singleUp" },
+    ALTURA_CELESTIAL: { val: "singleUp" },
+    CLIMA_CALIDO: { val: "neutral" },
+    CLIMA_FRIO: { val: "neutral" },
+    CLIMA_NEVADO: { val: "neutral" },
+    CUEVA_MAGMATICA: { val: "singleDown" },
+    CUEVA_FRIA: { val: "singleDown" },
+    CUEVA_FUNGAL: { val: "neutral" },
+    CUEVA_OSCURA: { val: "doubleUp" },
+    CUEVA_CRISTAL: { val: "neutral" },
+    CUEVA_PROFUNDA: { val: "singleUp" },
+    CUEVA_PIEDRA: { val: "neutral" },
+    CUEVA_JUNGLA: { val: "neutral" },
+    DIMENSION_NETHER: { val: "singleDown" },
+    DIMENSION_END: { val: "doubleUp" }
+  },
+  ender: {
+    ARDIENDO: { val: "neutral" },
+    EN_LAVA: { val: "neutral" },
+    SUMERGIDO: { val: "doubleDown" },
+    MOJADO: { val: "singleDown" },
+    VIDA_CRITICA: { val: "neutral" },
+    CERCA_LAVA: { val: "neutral" },
+    TORMENTA: { val: "neutral" },
+    NOCHE: { val: "doubleUp" },
+    ALTURA_CELESTIAL: { val: "singleUp" },
+    CLIMA_CALIDO: { val: "neutral" },
+    CLIMA_FRIO: { val: "neutral" },
+    CLIMA_NEVADO: { val: "neutral" },
+    CUEVA_MAGMATICA: { val: "neutral" },
+    CUEVA_FRIA: { val: "neutral" },
+    CUEVA_FUNGAL: { val: "neutral" },
+    CUEVA_OSCURA: { val: "singleUp" },
+    CUEVA_CRISTAL: { val: "singleUp" },
+    CUEVA_PROFUNDA: { val: "neutral" },
+    CUEVA_PIEDRA: { val: "singleDown" },
+    CUEVA_JUNGLA: { val: "neutral" },
+    DIMENSION_NETHER: { val: "singleDown" },
+    DIMENSION_END: { val: "doubleUp" }
+  },
+  eldritch: {
+    ARDIENDO: { val: "neutral" },
+    EN_LAVA: { val: "neutral" },
+    SUMERGIDO: { val: "neutral" },
+    MOJADO: { val: "neutral" },
+    VIDA_CRITICA: { val: "neutral" },
+    CERCA_LAVA: { val: "neutral" },
+    TORMENTA: { val: "neutral" },
+    NOCHE: { val: "neutral" },
+    ALTURA_CELESTIAL: { val: "neutral" },
+    CLIMA_CALIDO: { val: "neutral" },
+    CLIMA_FRIO: { val: "neutral" },
+    CLIMA_NEVADO: { val: "neutral" },
+    CUEVA_MAGMATICA: { val: "neutral" },
+    CUEVA_FRIA: { val: "neutral" },
+    CUEVA_FUNGAL: { val: "neutral" },
+    CUEVA_OSCURA: { val: "singleUp" },
+    CUEVA_CRISTAL: { val: "neutral" },
+    CUEVA_PROFUNDA: { val: "neutral" },
+    CUEVA_PIEDRA: { val: "neutral" },
+    CUEVA_JUNGLA: { val: "neutral" },
+    DIMENSION_NETHER: { val: "neutral" },
+    DIMENSION_END: { val: "neutral" }
+  }
+};
+
+const envResistancesData = {
+  ARDIENDO: {
+    fort: [],
+    weak: [
+      { id: "fuego", val: -30, label: "-30% (x2)" },
+      { id: "hielo", val: -15, label: "-15%" }
+    ]
+  },
+  EN_LAVA: {
+    fort: [],
+    weak: [
+      { id: "fuego", val: -45, label: "-45% (x3)" },
+      { id: "hielo", val: -15, label: "-15%" }
+    ]
+  },
+  SUMERGIDO: {
+    fort: [
+      { id: "fuego", val: 15, label: "+15%" },
+      { id: "tierra", val: 15, label: "+15%" }
+    ],
+    weak: [
+      { id: "electrico", val: -30, label: "-30% (x2)" },
+      { id: "hielo", val: -15, label: "-15%" }
+    ]
+  },
+  MOJADO: {
+    fort: [
+      { id: "fuego", val: 15, label: "+15%" }
+    ],
+    weak: [
+      { id: "electrico", val: -15, label: "-15%" },
+      { id: "hielo", val: -15, label: "-15%" }
+    ]
+  },
+  VIDA_CRITICA: {
+    fort: [],
+    weak: [
+      { id: "sangre", val: -30, label: "-30% (x2)" }
+    ]
+  },
+  CERCA_LAVA: {
+    fort: [
+      { id: "hielo", val: 15, label: "+15%" }
+    ],
+    weak: [
+      { id: "fuego", val: -15, label: "-15%" }
+    ]
+  },
+  TORMENTA: {
+    fort: [],
+    weak: [
+      { id: "electrico", val: -30, label: "-30% (x2)" }
+    ]
+  },
+  NOCHE: {
+    fort: [
+      { id: "ender", val: 15, label: "+15%" }
+    ],
+    weak: [
+      { id: "sagrado", val: -15, label: "-15%" }
+    ]
+  },
+  ALTURA_CELESTIAL: {
+    fort: [],
+    weak: []
+  },
+  CLIMA_CALIDO: {
+    fort: [
+      { id: "hielo", val: 15, label: "+15%" }
+    ],
+    weak: [
+      { id: "fuego", val: -15, label: "-15%" }
+    ]
+  },
+  CLIMA_FRIO: {
+    fort: [
+      { id: "fuego", val: 15, label: "+15%" }
+    ],
+    weak: [
+      { id: "hielo", val: -15, label: "-15%" },
+      { id: "sangre", val: -15, label: "-15%" }
+    ]
+  },
+  CLIMA_NEVADO: {
+    fort: [
+      { id: "fuego", val: 30, label: "+30% (x2)" }
+    ],
+    weak: [
+      { id: "hielo", val: -30, label: "-30% (x2)" }
+    ]
+  },
+  CUEVA_MAGMATICA: {
+    fort: [
+      { id: "hielo", val: 15, label: "+15%" }
+    ],
+    weak: [
+      { id: "fuego", val: -15, label: "-15%" },
+      { id: "tierra", val: -15, label: "-15%" }
+    ]
+  },
+  CUEVA_FRIA: {
+    fort: [
+      { id: "fuego", val: 15, label: "+15%" }
+    ],
+    weak: [
+      { id: "hielo", val: -15, label: "-15%" },
+      { id: "sangre", val: -15, label: "-15%" }
+    ]
+  },
+  CUEVA_FUNGAL: {
+    fort: [
+      { id: "invocador", val: 15, label: "+15%" }
+    ],
+    weak: [
+      { id: "naturaleza", val: -15, label: "-15%" },
+      { id: "sagrado", val: -15, label: "-15%" }
+    ]
+  },
+  CUEVA_OSCURA: {
+    fort: [],
+    weak: []
+  },
+  CUEVA_CRISTAL: {
+    fort: [
+      { id: "electrico", val: 15, label: "+15%" }
+    ],
+    weak: [
+      { id: "tierra", val: -15, label: "-15%" }
+    ]
+  },
+  CUEVA_PROFUNDA: {
+    fort: [
+      { id: "sangre", val: 15, label: "+15%" },
+      { id: "tierra", val: 15, label: "+15%" }
+    ],
+    weak: [
+      { id: "naturaleza", val: -15, label: "-15%" },
+      { id: "sagrado", val: -15, label: "-15%" }
+    ]
+  },
+  CUEVA_PIEDRA: {
+    fort: [
+      { id: "tierra", val: 15, label: "+15%" }
+    ],
+    weak: [
+      { id: "ender", val: -15, label: "-15%" }
+    ]
+  },
+  CUEVA_JUNGLA: {
+    fort: [
+      { id: "tierra", val: 15, label: "+15%" }
+    ],
+    weak: [
+      { id: "fuego", val: -15, label: "-15%" },
+      { id: "hielo", val: -15, label: "-15%" }
+    ]
+  },
+  DIMENSION_NETHER: {
+    fort: [
+      { id: "hielo", val: 15, label: "+15%" },
+      { id: "agua", val: 30, label: "+30% (x2)" }
+    ],
+    weak: [
+      { id: "fuego", val: -30, label: "-30% (x2)" }
+    ]
+  },
+  DIMENSION_END: {
+    fort: [
+      { id: "ender", val: 15, label: "+15%" },
+      { id: "tierra", val: 15, label: "+15%" }
+    ],
+    weak: [
+      { id: "sagrado", val: -15, label: "-15%" },
+      { id: "electrico", val: -15, label: "-15%" },
+      { id: "naturaleza", val: -15, label: "-15%" }
+    ]
+  }
+};
+
+function initEnvCatalog() {
+  const treeContainer = document.getElementById("env-priority-tree");
+  treeContainer.innerHTML = `
+    <div class="priority-title">Jerarquía de Detección de Entornos</div>
+    <div class="priority-subtitle">Los entornos se detectan de arriba a abajo. Múltiples entornos se acumulan, pero el estado físico prima en prioridades.</div>
+    <div class="priority-flow">
+      <div class="priority-step priority-1">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>Estado Físico (Máxima Prioridad)</strong>
+          <span class="step-details">Ardiendo, En lava, Sumergido, Mojado, Vida Crítica, Cerca de lava, Lluvia, Altura</span>
+        </div>
+      </div>
+      <div class="priority-arrow">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+      </div>
+      <div class="priority-step priority-2">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Clima Superficial / Biomas Externos</strong>
+          <span class="step-details">Clima Cálido, Clima Frío, Clima Nevado</span>
+        </div>
+      </div>
+      <div class="priority-arrow">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+      </div>
+      <div class="priority-step priority-3">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>Bioma Subterráneo / Caverna</strong>
+          <span class="step-details">Deep Dark, Cavernas de Terralith y Vanilla</span>
+        </div>
+      </div>
+      <div class="priority-arrow">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+      </div>
+      <div class="priority-step priority-4">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <strong>Dimensión</strong>
+          <span class="step-details">Nether, End</span>
+        </div>
+      </div>
+      <div class="priority-arrow">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+      </div>
+      <div class="priority-step priority-5">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <strong>Estado del Entorno Dinámico</strong>
+          <span class="step-details">Noche, Tormenta Eléctrica</span>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const gridContainer = document.getElementById("env-catalog-grid");
+  let html = "";
+  
+  const cats = {
+    fisico: { title: "Estados Físicos y Clima", class: "cat-fisico" },
+    clima: { title: "Clima Superficial / Biomas Externos", class: "cat-clima" },
+    cavernas: { title: "Biomas Cavernosos", class: "cat-cavernas" },
+    dimensiones: { title: "Dimensiones", class: "cat-dimensiones" }
+  };
+
+  Object.entries(cats).forEach(([catKey, catInfo]) => {
+    html += `
+      <div class="catalog-category-block">
+        <h3 class="category-block-title">${catInfo.title}</h3>
+        <div class="catalog-cards-grid">
+    `;
+
+    envCatalog.filter(e => e.cat === catKey).forEach(env => {
+      html += `
+        <div class="env-card ${catInfo.class}">
+          <div class="env-card-header">
+            <span class="env-card-name">${env.name}</span>
+          </div>
+          <div class="env-card-body">
+            <div class="env-card-field">
+              <span class="field-value field-desc">${env.desc}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+
+    html += `
+        </div>
+      </div>
+    `;
+  });
+
+  gridContainer.innerHTML = html;
+}
+
+let currentEnvMatrixFilter = "todos";
+
+function initEnvMatrix() {
+  const container = document.getElementById("view-env-matrix");
+  let filtersHtml = `
+    <div class="env-matrix-filters">
+      <button class="filter-btn active" onclick="filterEnvMatrix('todos', this)">Todos</button>
+      <button class="filter-btn" onclick="filterEnvMatrix('fisico', this)">Físico</button>
+      <button class="filter-btn" onclick="filterEnvMatrix('clima', this)">Clima Superficial</button>
+      <button class="filter-btn" onclick="filterEnvMatrix('cavernas', this)">Cavernas</button>
+      <button class="filter-btn" onclick="filterEnvMatrix('dimensiones', this)">Dimensiones</button>
+    </div>
+  `;
+
+  let filtersContainer = container.querySelector(".env-matrix-filters");
+  if (!filtersContainer) {
+    const wrapper = container.querySelector(".matrix-wrapper");
+    filtersContainer = document.createElement("div");
+    filtersContainer.className = "env-matrix-filters-wrapper";
+    filtersContainer.innerHTML = filtersHtml;
+    container.insertBefore(filtersContainer, wrapper);
+  }
+
+  renderEnvMatrixTable();
+  renderEnvMatrixLegend();
+}
+
+function filterEnvMatrix(cat, btn) {
+  currentEnvMatrixFilter = cat;
+  const filterBtns = document.querySelectorAll(".env-matrix-filters .filter-btn");
+  filterBtns.forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  renderEnvMatrixTable();
+}
+
+function renderEnvMatrixTable() {
+  const table = document.getElementById("env-matrix-table");
+  const activeEnvs = envCatalog.filter(e => currentEnvMatrixFilter === "todos" || e.cat === currentEnvMatrixFilter);
+  
+  let html = "<tr><th>ELEMENTO \\ ENTORNO</th>";
+  activeEnvs.forEach(env => {
+    html += `<th class="env-th" title="${env.desc}"><div class="th-env-name">${env.name}</div></th>`;
+  });
+  html += "</tr>";
+
+  elements.forEach(el => {
+    const labelWithDagger = el.id === "eldritch" ? `${el.label} †` : el.label;
+    html += `<tr><th class="row-header" style="color: ${el.color}"><span class="matrix-icon">${el.icon}</span> ${labelWithDagger}</th>`;
+    
+    activeEnvs.forEach(env => {
+      const cell = envMagesMatrix[el.id]?.[env.id] || { val: "neutral" };
+      let cellClass = `cell-env-${cell.val}`;
+      let icon = envIcons[cell.val] || "";
+      
+      let tooltip = "";
+      if (cell.val === "doubleUp") tooltip = `Fortaleza Extrema (+25% Poder, +50% Maná)`;
+      else if (cell.val === "singleUp") tooltip = `Fortaleza (+15% Poder, +30% Maná)`;
+      else if (cell.val === "singleDown") tooltip = `Debilidad (-15% Poder, -30% Maná)`;
+      else if (cell.val === "doubleDown") tooltip = `Debilidad Extrema (-25% Poder, -50% Maná)`;
+      else tooltip = "Neutral";
+
+      html += `
+        <td class="env-cell ${cellClass}" title="${tooltip}">
+          <div class="env-cell-content">
+            <span class="env-cell-icon">${icon}</span>
+          </div>
+        </td>
+      `;
+    });
+    
+    html += `</tr>`;
+  });
+
+  table.innerHTML = html;
+}
+
+function renderEnvMatrixLegend() {
+  const legend = document.getElementById("env-matrix-legend");
+  legend.innerHTML = `
+    <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; width: 100%;">
+      <div class="legend-item">
+        <div class="legend-icon-container" style="color: #2ece71">${envIcons.doubleUp}</div>
+        <span><strong>Fortaleza Extrema</strong> (+25% SP / +50% Maná)</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-icon-container" style="color: #a3e4d7">${envIcons.singleUp}</div>
+        <span><strong>Fortaleza</strong> (+15% SP / +30% Maná)</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-icon-container" style="color: #5d6d7e">${envIcons.neutral}</div>
+        <span><strong>Neutral</strong></span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-icon-container" style="color: #f5b041">${envIcons.singleDown}</div>
+        <span><strong>Debilidad</strong> (-15% SP / -30% Maná)</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-icon-container" style="color: #e74c3c">${envIcons.doubleDown}</div>
+        <span><strong>Debilidad Extrema</strong> (-25% SP / -50% Maná)</span>
+      </div>
+    </div>
+    <div class="matrix-disclaimer" style="margin-top: 20px; font-size: 0.9em; opacity: 0.8; line-height: 1.4; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; width: 100%; text-align: left;">
+      <p>• Los modificadores de entornos múltiples se <strong>acumulan</strong> (con cap de ±50% SP y ±60% maná).</p>
+    </div>
+  `;
+}
+
+function initEnvResistances() {
+  const container = document.getElementById("env-resistances-wrapper");
+  let html = `
+    <div class="resist-intro">
+      <h2>Modificadores de Resistencias Mágicas (Todas las clases)</h2>
+      <p>Todos los jugadores reciben modificadores de resistencia elemental según el entorno. La intensidad base es de ±15%.</p>
+    </div>
+    <div class="resist-cards-grid">
+  `;
+
+  envCatalog.forEach(env => {
+    const data = envResistancesData[env.id];
+    if (!data) return;
+    if (data.fort.length === 0 && data.weak.length === 0) {
+      return;
+    }
+
+    const catName = envCategories[env.cat] || "";
+
+    const makeBadge = (item) => {
+      const el = elements.find(e => e.id === item.id);
+      if (!el) return "";
+      return `
+        <div class="type-badge" style="background: ${el.color}">
+          ${el.icon} ${el.label} <span class="badge-val">${item.label}</span>
+        </div>
+      `;
+    };
+
+    html += `
+      <div class="resist-card">
+        <div class="resist-card-header">
+          <div class="resist-card-title-row">
+            <span class="resist-card-name">${env.name}</span>
+            <span class="resist-card-cat">${catName}</span>
+          </div>
+          <span class="resist-card-desc">${env.desc}</span>
+        </div>
+        <div class="resist-card-body">
+          <div class="resist-col">
+            <span class="col-title color-green">${envIcons.shield} Fortalezas (+Res)</span>
+            <div class="badge-list">
+              ${data.fort.length > 0 ? data.fort.map(makeBadge).join("") : `<span class="no-mods">Ninguna</span>`}
+            </div>
+          </div>
+          <div class="resist-col">
+            <span class="col-title color-red">${envIcons.shield} Debilidades (-Res)</span>
+            <div class="badge-list">
+              ${data.weak.length > 0 ? data.weak.map(makeBadge).join("") : `<span class="no-mods">Ninguna</span>`}
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  html += `</div>`;
+  container.innerHTML = html;
+}
+
+function initEnvGuide() {
+  const container = document.getElementById("env-guide-wrapper");
+  container.innerHTML = `
+    <div class="guide-grid" style="grid-template-columns: 1fr; max-width: 850px; margin: 0 auto; gap: 20px;">
+      <div class="guide-card card-design">
+        <h3>Dos Sistemas Independientes y Acumulativos</h3>
+        <p style="line-height: 1.6; font-size: 1.05em; opacity: 0.95; margin-bottom: 20px;">
+          Para entender cómo te afecta el entorno, debes diferenciar los dos efectos que ocurren simultáneamente. 
+          Un mago puede ser neutral en su magia, pero seguir sufriendo vulnerabilidades en su cuerpo físico:
+        </p>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">
+          <div style="background: rgba(46, 204, 113, 0.05); border: 1px solid rgba(46, 204, 113, 0.2); padding: 15px; border-radius: 8px;">
+            <h4 style="color: #2ecc71; margin-top: 0;">1. Canalización de Magia (Magos)</h4>
+            <p style="font-size: 0.95em; opacity: 0.85; line-height: 1.5;">
+              Afecta al daño que haces con tus hechizos (Poder de Hechizo) y a tu capacidad de maná. 
+              Si un elemento es neutral, tu poder destructivo y maná no cambian en absoluto. Esto es lo que refleja la pestaña "Matriz de Magos".
+            </p>
+          </div>
+          <div style="background: rgba(52, 152, 219, 0.05); border: 1px solid rgba(52, 152, 219, 0.2); padding: 15px; border-radius: 8px;">
+            <h4 style="color: #3498db; margin-top: 0;">2. Resistencias del Cuerpo (Todos)</h4>
+            <p style="font-size: 0.95em; opacity: 0.85; line-height: 1.5;">
+              Afecta al daño que recibes de ataques enemigos. Se aplica a cualquier clase. 
+              Por ejemplo, estar mojado te hace vulnerable a recibir más daño eléctrico (-15% resistencia), seas mago o no.
+            </p>
+          </div>
+        </div>
+
+        <div class="guide-section">
+          <h4>Diferencias de Intensidad (Magos)</h4>
+          <table class="guide-table">
+            <tr><th>Nivel</th><th>Entorno típico</th><th>Poder de Hechizo (Daño saliente)</th><th>Maná Máximo</th></tr>
+            <tr><td>Normal (Simple arriba)</td><td>Lluvia, mojado</td><td>+15%</td><td>+30%</td></tr>
+            <tr><td>Normal (Simple abajo)</td><td>Bioma frío siendo Fuego</td><td>-15%</td><td>-30%</td></tr>
+            <tr><td>Intensificado (Doble arriba)</td><td>Fuego en lava o Nether</td><td>+25%</td><td>+50%</td></tr>
+            <tr><td>Intensificado (Doble abajo)</td><td>Agua en Nether o en llamas</td><td>-25%</td><td>-50%</td></tr>
+          </table>
+        </div>
+        <div class="guide-section">
+          <h4>Acumulación y Límites (Tope)</h4>
+          <p>Los entornos se suman si estás en varios a la vez, pero existen topes de seguridad para evitar roturas de balance:</p>
+          <ul>
+            <li><strong>Magos (Poder y Maná):</strong> Máximo acumulable de <strong>±50% Poder de Hechizo</strong> y <strong>±60% Maná</strong>.</li>
+            <li><strong>Resistencias (Todos los jugadores):</strong> Máximo acumulable de <strong>±40% de resistencia</strong> a cualquier elemento.</li>
+          </ul>
+        </div>
+        <div class="guide-section">
+          <h4>Casos Especiales Clarificados</h4>
+          <ul>
+            <li><strong>Eldritch e Indiferencia Terrenal (Ejemplo):</strong> La magia de Eldritch es un tipo de magia que difiere del resto. No le afecta el calor, el agua, la noche ni el End (es neutral en su canalización). Sin embargo, al tener un cuerpo físico, un jugador de clase Eldritch mojado <strong>sí sufrirá la debilidad de recibir más daño eléctrico (-15% resistencia)</strong> igual que todos los demás.</li>
+            <li><strong>Sangre y Vida Crítica (Ejemplo):</strong> Al bajar del 30% de vida, se activa una alteración biológica: el mago de Sangre entra en frenesí y el de Sagrado intensifica su fe. Físicamente, el cuerpo de todos los jugadores se vuelve inestable ante la magia de sangre (recibiendo +30% de daño de esta escuela).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function initEnvVersus() {
+  const playerSelect = document.getElementById("env-versus-player");
+  const locSelect = document.getElementById("env-versus-location");
+
+  if (!playerSelect || !locSelect) return;
+
+  // Populates player options (without emojis in the text)
+  let playerOptions = `<option value="no-mago">Jugador No-Mago (Cualquier Clase)</option>`;
+  elements.forEach(el => {
+    playerOptions += `<option value="mago-${el.id}">Mago de ${el.label}</option>`;
+  });
+  playerSelect.innerHTML = playerOptions;
+
+  // Populates environment location options (without emojis in the text)
+  let locOptions = "";
+  envCatalog.forEach(env => {
+    locOptions += `<option value="${env.id}">${env.name} [${envCategories[env.cat] || ""}]</option>`;
+  });
+  locSelect.innerHTML = locOptions;
+
+  const updateResult = () => {
+    const playerVal = playerSelect.value;
+    const envId = locSelect.value;
+    const env = envCatalog.find(e => e.id === envId);
+    if (!env) return;
+
+    const box = document.getElementById("env-versus-result");
+    const content = document.getElementById("env-versus-content");
+
+    let spellPowerMod = "0%";
+    let manaMod = "0%";
+    let isBuff = false;
+    let isDebuff = false;
+
+    // 1. Calculate Mage Spellpower / Mana modifier
+    if (playerVal.startsWith("mago-")) {
+      const elId = playerVal.replace("mago-", "");
+      const mageCell = envMagesMatrix[elId]?.[envId] || { val: "neutral" };
+      if (mageCell.val === "doubleUp") {
+        spellPowerMod = "+25%";
+        manaMod = "+50%";
+        isBuff = true;
+      } else if (mageCell.val === "singleUp") {
+        spellPowerMod = "+15%";
+        manaMod = "+30%";
+        isBuff = true;
+      } else if (mageCell.val === "singleDown") {
+        spellPowerMod = "-15%";
+        manaMod = "-30%";
+        isDebuff = true;
+      } else if (mageCell.val === "doubleDown") {
+        spellPowerMod = "-25%";
+        manaMod = "-50%";
+        isDebuff = true;
+      }
+    }
+
+    // 2. Calculate Bodily Resistances with Mage Immunity Check
+    const resData = envResistancesData[envId] || { fort: [], weak: [] };
+    const isMago = playerVal.startsWith("mago-");
+    const magoElId = isMago ? playerVal.replace("mago-", "") : null;
+
+    const fortList = resData.fort.map(item => {
+      const el = elements.find(e => e.id === item.id);
+      const labelText = el.label;
+      return `<span class="type-badge" style="background:${el.color}; display:inline-flex; align-items:center; gap:5px; margin: 3px; font-size: 0.9em; padding: 4px 8px; border-radius: 4px; color:#fff; transition: all 0.3s ease;">${el.icon} ${labelText} <strong>${item.label}</strong></span>`;
+    }).join("");
+
+    const weakList = resData.weak.map(item => {
+      const el = elements.find(e => e.id === item.id);
+      const isImmune = isMago && item.id === magoElId;
+      const labelText = el.label;
+
+      if (isImmune) {
+        return `<span class="type-badge" style="background:#555; text-decoration: line-through; opacity: 0.5; display:inline-flex; align-items:center; gap:5px; margin: 3px; font-size: 0.9em; padding: 4px 8px; border-radius: 4px; color:#aaa; transition: all 0.3s ease;" title="Inmune a debilidades corporales de su propio elemento">${el.icon} ${labelText} <strong>${item.label} (Inmune)</strong></span>`;
+      }
+
+      return `<span class="type-badge" style="background:${el.color}; display:inline-flex; align-items:center; gap:5px; margin: 3px; font-size: 0.9em; padding: 4px 8px; border-radius: 4px; color:#fff; transition: all 0.3s ease;">${el.icon} ${labelText} <strong>${item.label}</strong></span>`;
+    }).join("");
+
+    // Dynamic box glow coloring with transition animation
+    box.style.transition = "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+    box.style.borderColor = isBuff ? "#2ecc71" : (isDebuff ? "#e74c3c" : "#555");
+    box.style.boxShadow = isBuff ? "0 0 15px rgba(46,204,113,0.15)" : (isDebuff ? "0 0 15px rgba(231,76,60,0.15)" : "none");
+
+    // Add scale micro-animation on calculation refresh
+    box.style.transform = "scale(0.98)";
+    setTimeout(() => { box.style.transform = "scale(1)"; }, 50);
+
+    let html = "";
+
+    // Render Mage stats section if selected
+    if (isMago) {
+      const el = elements.find(e => e.id === magoElId);
+      html += `
+        <div style="margin-bottom: 20px; animation: fadeIn 0.4s ease;">
+          <h5 style="margin: 0 0 10px 0; color: ${el.color}; font-size: 1.1em; display:flex; align-items:center; gap:8px;">${el.icon} Canalización de Magia (${el.label})</h5>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 10px; border-radius: 6px; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+              <div style="font-size: 0.85em; opacity: 0.6;">Poder de Hechizo (Daño saliente)</div>
+              <div style="font-size: 1.5em; font-weight: bold; margin-top: 5px; color: ${spellPowerMod.startsWith("+") ? "#2ecc71" : (spellPowerMod.startsWith("-") ? "#e74c3c" : "#fff")}">${spellPowerMod}</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 10px; border-radius: 6px; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+              <div style="font-size: 0.85em; opacity: 0.6;">Capacidad de Maná Máximo</div>
+              <div style="font-size: 1.5em; font-weight: bold; margin-top: 5px; color: ${manaMod.startsWith("+") ? "#2ecc71" : (manaMod.startsWith("-") ? "#e74c3c" : "#fff")}">${manaMod}</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Render Physical resistances section (affects everyone)
+    html += `
+      <div>
+        <h5 style="margin: 0 0 10px 0; color: #3498db; font-size: 1.1em;">🛡 Resistencias del Cuerpo Físico</h5>
+        <p style="font-size: 0.9em; opacity: 0.8; margin: 0 0 12px 0;">Modifica la resistencia a daños entrantes del jugador en este entorno (afecta a todas las clases):</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+          <div style="background: rgba(46,204,113,0.03); border: 1px solid rgba(46,204,113,0.1); padding: 12px; border-radius: 6px;">
+            <div style="font-size: 0.9em; color: #2ecc71; margin-bottom: 8px; font-weight: bold;">Fortalezas (+Resistencia / Recibes Menos Daño)</div>
+            <div style="display: flex; flex-wrap: wrap;">${fortList || '<span style="font-size:0.9em; opacity:0.5;">Ninguna</span>'}</div>
+          </div>
+          <div style="background: rgba(231,76,60,0.03); border: 1px solid rgba(231,76,60,0.1); padding: 12px; border-radius: 6px;">
+            <div style="font-size: 0.9em; color: #e74c3c; margin-bottom: 8px; font-weight: bold;">Debilidades (-Resistencia / Recibes Más Daño)</div>
+            <div style="display: flex; flex-wrap: wrap;">${weakList || '<span style="font-size:0.9em; opacity:0.5;">Ninguna</span>'}</div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    content.innerHTML = html;
+  };
+
+  playerSelect.addEventListener("change", updateResult);
+  locSelect.addEventListener("change", updateResult);
+  updateResult();
+}
+
 window.onload = () => {
   initMobileLegend();
   initChart();
@@ -951,4 +1908,11 @@ window.onload = () => {
   initCompatMatrix();
   initCompatVersus();
   initCompatCards();
+
+  initEnvCatalog();
+  initEnvMatrix();
+  initEnvResistances();
+  initEnvVersus();
+  initEnvGuide();
 };
+
