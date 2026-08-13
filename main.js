@@ -10,6 +10,8 @@ const icons = {
   ender: `<svg viewBox="0 0 24 24" width="1em" height="1em"><path fill="currentColor" d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z"/></svg>`,
   eldritch: `<svg viewBox="0 0 24 24" width="1em" height="1em"><path fill="currentColor" d="M12,2L14.8,8.2L21,11L14.8,13.8L12,20L9.2,13.8L3,11L9.2,8.2L12,2M12,8.5A2.5,2.5 0 0,0 9.5,11A2.5,2.5 0 0,0 12,13.5A2.5,2.5 0 0,0 14.5,11A2.5,2.5 0 0,0 12,8.5Z" /></svg>`,
   tierra: `<svg viewBox="0 0 24 24" width="1em" height="1em"><path fill="currentColor" d="M14,6L10.25,11L13.1,14.8L11.5,16C9.81,13.75 7,10 7,10L1,18H23L14,6Z" /></svg>`,
+  abisal: `<svg viewBox="0 0 24 24" width="1em" height="1em"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2zm1 15.92V18h-2v-1.5c-2-.5-3.5-2-4-4l1.42-.58c.33 1.33 1.33 2.33 2.58 2.66V11h-2V9h2V6h2v3h2v2h-2v4.58c1.25-.33 2.25-1.33 2.58-2.66l1.42.58c-.5 2-2 3.5-4 4z"/></svg>`,
+  tecnologia: `<svg viewBox="0 0 24 24" width="1em" height="1em"><path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>`,
 };
 
 const corruptChars = "§kЖΩΣψλθΦΔΞ";
@@ -22,14 +24,14 @@ const elements = [
     icon: icons.agua,
     color: "#3498db",
     strongAgainst: ["fuego", "ender", "tierra"],
-    weakAgainst: ["naturaleza", "electrico", "eldritch"],
+    weakAgainst: ["naturaleza", "electrico", "eldritch", "abisal"],
   },
   {
     id: "fuego",
     label: "Fuego",
     icon: icons.fuego,
     color: "#d35400",
-    strongAgainst: ["naturaleza", "hielo"],
+    strongAgainst: ["naturaleza", "hielo", "tecnologia"],
     weakAgainst: ["agua", "sangre", "tierra", "eldritch"],
   },
   {
@@ -46,7 +48,7 @@ const elements = [
     icon: icons.tierra,
     color: "#a67c52",
     strongAgainst: ["electrico", "fuego"],
-    weakAgainst: ["agua", "naturaleza", "eldritch"],
+    weakAgainst: ["agua", "naturaleza", "eldritch", "tecnologia"],
   },
   {
     id: "hielo",
@@ -54,14 +56,14 @@ const elements = [
     icon: icons.hielo,
     color: "#00ffff",
     strongAgainst: ["naturaleza", "sangre"],
-    weakAgainst: ["fuego", "sagrado", "eldritch"],
+    weakAgainst: ["fuego", "sagrado", "eldritch", "tecnologia"],
   },
   {
     id: "electrico",
     label: "Eléctrico",
     icon: icons.electrico,
     color: "#f39c12",
-    strongAgainst: ["agua", "invocador"],
+    strongAgainst: ["agua", "invocador", "abisal", "tecnologia"],
     weakAgainst: ["naturaleza", "ender", "tierra", "eldritch"],
   },
   {
@@ -69,7 +71,7 @@ const elements = [
     label: "Sagrado",
     icon: icons.sagrado,
     color: "#f1c40f",
-    strongAgainst: ["hielo", "sangre"],
+    strongAgainst: ["hielo", "sangre", "abisal"],
     weakAgainst: ["invocador", "ender", "eldritch"],
   },
   {
@@ -94,7 +96,7 @@ const elements = [
     icon: icons.ender,
     color: "#9b59b6",
     strongAgainst: ["electrico", "sagrado"],
-    weakAgainst: ["agua", "invocador", "eldritch"],
+    weakAgainst: ["agua", "invocador", "eldritch", "abisal"],
   },
   {
     id: "eldritch",
@@ -113,8 +115,26 @@ const elements = [
       "ender",
       "tierra",
       "eldritch",
+      "abisal",
+      "tecnologia",
     ],
     weakAgainst: ["eldritch"],
+  },
+  {
+    id: "abisal",
+    label: "Abisal",
+    icon: icons.abisal,
+    color: "#113f67",
+    strongAgainst: ["agua", "ender"],
+    weakAgainst: ["electrico", "sagrado", "eldritch"],
+  },
+  {
+    id: "tecnologia",
+    label: "Tecnología",
+    icon: icons.tecnologia,
+    color: "#7f8c8d",
+    strongAgainst: ["hielo", "tierra"],
+    weakAgainst: ["fuego", "electrico", "eldritch"],
   },
 ];
 
@@ -187,6 +207,14 @@ const conflictNotas = {
   "fuego|tierra": "Tierra sofoca Fuego.",
   "agua|tierra": "Agua erosiona Tierra.",
   "naturaleza|tierra": "Naturaleza enraíza en Tierra.",
+  "abisal|agua": "Abisal engulle Agua.",
+  "abisal|ender": "Abisal consume a Ender.",
+  "abisal|electrico": "Eléctrico electrifica Abisal.",
+  "abisal|sagrado": "Sagrado purifica Abisal.",
+  "hielo|tecnologia": "Tecnología funde Hielo.",
+  "tecnologia|tierra": "Tecnología excava Tierra.",
+  "fuego|tecnologia": "Fuego funde Tecnología.",
+  "electrico|tecnologia": "Eléctrico sobrecarga Tecnología.",
 };
 
 function buildCompatData(elementList) {
